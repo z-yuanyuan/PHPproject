@@ -14,11 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//List of endpoints
 Route::post('users', 'App\Http\Controllers\ApiController@createUser'); //Post request to create user record. 
 Route::get('users', 'App\Http\Controllers\ApiController@getAllUsers'); //Get request to fetch user record. 
-Route::get('users/{id}', 'App\Http\Controllers\ApiController@getUser'); //Fetch user's info by id;
-Route::put('users/{id}', 'App\Http\Controllers\ApiController@updateUser'); //Put request to update user record.
-Route::delete('users/{id}', 'App\Http\Controllers\ApiController@deleteUser'); //Delete user record from database. 
+Route::get('users/{id}', 'App\Http\Controllers\ApiController@getUserbyid'); //Fetch user's info by id;
+Route::put('users/{id}', 'App\Http\Controllers\ApiController@updateUserbyid'); //Put request to update user record.
+Route::delete('users/{id}', 'App\Http\Controllers\ApiController@deleteUserbyid'); //Delete user record from database. 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

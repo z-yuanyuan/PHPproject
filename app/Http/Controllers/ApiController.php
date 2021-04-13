@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\users;
-use App\Http\Controllers\Adjustment;
+use Givebutter\LaravelKeyable\Auth\AuthorizesKeyableRequests;
 
 class ApiController extends Controller
 {
+    use AuthorizesKeyableRequests;
+
     public function createUser(Request $request)
     {
+        $user = $request->keyable;
         $user = new users();
         $user->Firstname = $request->Firstname;
         $user->Surname = $request->Surname;
@@ -18,9 +21,9 @@ class ApiController extends Controller
         $user->Email = $request->Email;
         $user->save();
 
-        return response()->json([
-            "message" => "User record created."
-        ], 201);
+        $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+        $out->writeln('User record created.');
+        return redirect('/');
     }
 
     public function getAllUsers()
@@ -29,7 +32,7 @@ class ApiController extends Controller
         return response($users, 200);
     }
 
-    public function getUser($id)
+    public function getUserbyid($id)
     {
         if (users::where('id', $id)->exists()) {
             $users = users::where('id', $id)->get()->toJson(JSON_PRETTY_PRINT);
@@ -41,10 +44,10 @@ class ApiController extends Controller
         }
     }
 
-    public function updateUser(Request $request, $id)
+    public function updateUserbyid(Request $request)
     {
-        if (users::where('id', $id)->exists()) {
-            $user = users::find($id);
+        if (users::where('id', $request->id)->exists()) {
+            $user = users::find($request->id);
             $user->Firstname = $request->Firstname;
             $user->Surname = $request->Surname;
             $user->DateOfBirth = $request->DateOfBirth;
@@ -52,17 +55,17 @@ class ApiController extends Controller
             $user->Email = $request->Email;
             $user->save();
 
-            return response()->json([
-                "message" => "User record updated successfully"
-            ], 200);
+            $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+            $out->writeln('User record updated successfully');
+            return redirect('/');
         } else {
-            return response()->json([
-                "message" => "User not found."
-            ], 404);
+            $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+            $out->writeln('User not found.');
+            return redirect('/');
         }
     }
 
-    public function deleteUser($id)
+    public function deleteUserbyid($id)
     {
         if (users::where('id', $id)->exists()) {
             $user = users::find($id);

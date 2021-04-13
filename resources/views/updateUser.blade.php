@@ -68,32 +68,30 @@
 </head>
 
 <body>
-    <form action="" method="POST">
+    <form action="/updateUser" method="POST">
+        <input type="hidden" name="id" value="{{$userdata['id']}}">
         <div class="container">
             <div class="content">
-                <h1>Create User</h1>
+                <h1>Update User Redord</h1>
 
                 <label for="Firstname"><b>Firstname</b></label>
-                <input type="text" name="Firstname" id="Firstname" required>
+                <input type="text" name="Firstname" id="Firstname" value="{{$userdata['Firstname']}}" required>
 
                 <label for="Surname"><b>Surname</b></label>
-                <input type="text" name="Surname" id="Surname" required>
+                <input type="text" name="Surname" id="Surname" value="{{$userdata['Surname']}}" required>
 
                 <label for="DateOfBirth"><b>Date Of Birth</b></label>
-                <input type="date" name="DateOfBirth" id="DateOfBirth" required>
+                <input type="date" name="DateOfBirth" id="DateOfBirth" value="{{$userdata['DateOfBirth']}}" required>
 
                 <label for="PhoneNumber"><b>Phone Number</b></label>
-                <input type="text" name="PhoneNumber" id="PhoneNumber" required>
+                <input type="text" name="PhoneNumber" id="PhoneNumber" value="{{$userdata['PhoneNumber']}}" required>
 
                 <label for="Email"><b>Email</b></label>
-                <input type="text" name="Email" id="Email" required>
+                <input type="text" name="Email" id="Email" value="{{$userdata['Email']}}" required>
 
-                <button type="submit" class="submitbtn">Submit</button>
+                <button type="submit" class="submitbtn">Update</button>
             </div>
-
-
         </div>
-
     </form>
 </body>
 
